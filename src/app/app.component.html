@@ -1,0 +1,7 @@
+<div class="container" *ngFor="let pizza of pizzas | async">
+    <app-card 
+    [title]="pizza.title" 
+    [imageURL]="pizza.imageURL" 
+    [description]="pizza.description"
+    [weight]="pizza.weight"></app-card>
+</div>
