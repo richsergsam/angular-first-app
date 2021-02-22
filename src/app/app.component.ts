@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { PizzaService } from './pizza.service';
+import {CartService} from './cart.service'
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { PizzaService } from './pizza.service';
 export class AppComponent {
 
   pizzas = this.pizzaService.getPizzas();
+  cart = this.cartService.getCart();
 
-  constructor(private pizzaService: PizzaService) { }
+  constructor(private pizzaService: PizzaService, private cartService: CartService) { }
 
 }

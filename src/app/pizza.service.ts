@@ -8,22 +8,30 @@ import {of} from 'rxjs'
 export class PizzaService {
   private pizzas = [
     {
+      id: 0,
       title: 'Пепперони',
       imageURL: 'https://dodopizza-a.akamaihd.net/static/Img/Products/5dffe4c7d3bc49668f50c1d08d920992_292x292.jpeg',
       description: 'Пикантная пепперони, увеличенная порция моцареллы, томаты, томатный соус',
-      weight: 1234
+      weight: 1234,
+      cost: 800
     },
     {
+      id: 1,
       title: 'Маргарита',
       imageURL: 'https://dodopizza-a.akamaihd.net/static/Img/Products/e8a8ded1f8154d11ab5065dc5208b187_292x292.jpeg',
       description: 'Увеличенная порция моцареллы, томаты, итальянские травы, томатный соус',
-      weight: 700
+      weight: 700, 
+      cost: 500
     }
   ];
 
   constructor() { }
 
   getPizzas() {
-    return of(this.pizzas).pipe(delay(2000));
+    return of(this.pizzas).pipe(delay(20));
+  }
+  
+  getPizza(id){
+    return of(this.pizzas.filter(p=> p.id == id)[0])
   }
 }
