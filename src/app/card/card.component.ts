@@ -16,14 +16,16 @@ export class CardComponent implements OnInit {
   @Input() imageURL;
   @Input() description;
   @Input() weight;
+  @Input() ingridients;
   @Input() cost;
 
   ngOnInit(): void {
   }
 
-  pizzaCountChange(changes){
-    console.log('pizzaCountChange to ' + changes.count + ' for id '+ changes.id);
-    this.cartService.changeCart(changes.id, changes.count);
+
+  pizzaCountChange(count){
+    console.log('pizzaCountChange to ' + count + ' for id '+ this.id);
+    this.cartService.changeCart(this.id, count);
 
   }
 

@@ -1,0 +1,13 @@
+<div class="container">
+  <p>Фильтры:</p>
+  <div *ngFor="let item of checkboxes">
+    <label style="margin-left: 25px;" class="form-check-label"
+      ><input
+        type="checkbox"
+        class="form-check-input"
+        [checked]="item.checked"
+        (change)="item.checked = !item.checked; selectionChanged($event)"
+      />{{ item.title }}</label
+    >
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CounterComponent implements OnInit {
 
-  @Input() pizzaId;
+  @Input() pizzaId: number;
   @Output() pizzaCountChangeEvent = new EventEmitter<any>();
 
   count:number = 0;
@@ -20,13 +20,13 @@ export class CounterComponent implements OnInit {
 
   inc(){
     this.count += 1;
-    this.pizzaCountChangeEvent.emit( {id:this.pizzaId, count:this.count});
+    this.pizzaCountChangeEvent.emit(this.count);
   }
 
   dec(){
     if (this.count > 0){
       this.count -=1;
-      this.pizzaCountChangeEvent.emit({id:this.pizzaId, count:this.count});
+      this.pizzaCountChangeEvent.emit(this.count);
     }
   }
 

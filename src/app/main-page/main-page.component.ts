@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 
-import { PizzaService } from './pizza.service';
-import { CartService } from './cart.service';
+import { PizzaService } from '../pizza.service';
+import { CartService } from '../cart.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-main-page',
+  templateUrl: './main-page.component.html',
+  styleUrls: ['./main-page.component.scss']
 })
-export class AppComponent {
+
+export class MainPageComponent implements OnInit {
   pizzas = this.pizzaService.getPizzas();
   cart = this.cartService.getCart();
 
   searchString: string = '';
   checkboxes = [];
+
+  ngOnInit(): void {
+  }
 
   constructor(
     private pizzaService: PizzaService,

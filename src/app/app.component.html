@@ -1,9 +1,1 @@
-<div class="container" *ngFor="let pizza of pizzas | async">
-    <app-card 
-    [title]="pizza.title" 
-    [imageURL]="pizza.imageURL" 
-    [description]="pizza.description"
-    [weight]="pizza.weight"
-    [cost]="pizza.cost"></app-card>
-</div>
-<app-cart [cart]="cart"></app-cart>
+<router-outlet></router-outlet>

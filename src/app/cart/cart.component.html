@@ -1,9 +1,9 @@
-<div class="card">
-  <h2>Корзина</h2>
-  <ul class="container" *ngFor="let id of cart | async">
-      <li>
-          <p>{{cart[id].pizza.title}}: {{cart[id].count}} шт. {{cart[id].pizza.cost * cart[id].pizza.count}} рублей.</p>
-          
-      </li>
-  </ul>
-</div>
+<ul *ngFor="let pizza of cart; trackBy: trackByFn">
+  <li>
+    <p>
+      {{ pizza.title }}: {{ pizza.count }} шт.
+      {{ pizza.cost * pizza.count }} рублей.
+    </p>
+  </li>
+</ul>
+<p>Итого: {{ cartService.getSumm() }}</p>

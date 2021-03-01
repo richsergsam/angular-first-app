@@ -1,28 +1,50 @@
 import { Injectable } from '@angular/core';
-import {of} from 'rxjs'
+import { of } from 'rxjs';
 
-import {PizzaService} from './pizza.service'
+import { PizzaService } from './pizza.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
+  private cart = new Array();
 
-  private cart;
-  // private cart : {[id:number]: {pizza:object, count:number}} = {};
+  constructor(private pizzaService: PizzaService) {}
 
-  constructor(private pizzaService: PizzaService,) { 
-    //this.changeCart(0, 4);
+  changeCart(pizzaId, count) {
+    if (count <= 0) {
+      let index = this.cart.indexOf((pizza) => pizza.id == pizzaId);
+      this.cart.splice(index, 1);
+    } else {
+      let pizza = this.cart.find((pizza) => pizza.id == pizzaId);
+      if (pizza != undefined) {
+        pizza.count = count;
+      } else {
+        this.pizzaService.getPizza(pizzaId).subscribe((p) => {
+          pizza = p;
+          pizza.count = count;
+          if (this.cart.find((pizza) => pizza.id == pizzaId) === undefined) {
+            this.cart.push(pizza);
+          }
+        });
+      }
+    }
+    console.log(this.cart);
   }
 
-  changeCart(pizzaId, count){
-    let p = this.pizzaService.getPizza(pizzaId).pipe();
-    console.log(typeof(p));
-    console.log(p);
-    //this.cart[pizzaId] = {pizza:p, count:count};
+  getCart() {
+    return this.cart;
   }
 
-  getCart(){
-    return of(this.cart);
+  getSumm() {
+    let sum = 0;
+    for (let pizza of this.cart) {
+      sum += pizza.cost * pizza.count;
+    }
+    return sum;
+  }
+
+  clearCart(){
+    this.cart = new Array();
   }
 }
