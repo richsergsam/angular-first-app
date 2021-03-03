@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="row ">
+    <div class="col-sm ">
+      <div class="small">
+        <img src="{{ pizza.imageURL }}" alt="" />
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <h2>{{ pizza.title }}</h2>
+      <p>{{ pizza.description }}</p>
+      <p>Состав: {{pizza.ingridients.join(', ')}}</p>
+      <p>Вес:{{ pizza.weight | weight }}</p>
+      <p>Цена: {{ pizza.cost }} р.</p>
+      <app-counter
+        [pizzaId]="pizza.id"
+        (pizzaCountChangeEvent)="pizzaCountChange($event)"
+      ></app-counter>
+    </div>
+  </div>
+</div>
+

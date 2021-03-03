@@ -1,39 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
-import { PizzaService } from './services/pizza.service';
-import { CartService } from './services/cart.service';
+import { PizzaService, Pizza } from '../../services/pizza.service';
+import { CartService, CartItem } from '../../services/cart.service';
+import {PizzaTypeCheckbox} from './pizza-type-selector/pizza-type-selector.component'
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-main-page',
+  templateUrl: './main-page.component.html',
+  styleUrls: ['./main-page.component.scss']
 })
-export class AppComponent {
-  pizzas = this.pizzaService.getPizzas();
-  cart = this.cartService.getCart();
+
+export class MainPageComponent implements OnInit {
+  pizzas: Observable<Array<Pizza>> = this.pizzaService.getPizzas();
+  cart: Array<CartItem> = this.cartService.getCart();
 
   searchString: string = '';
-  checkboxes = [];
+  checkboxes: Array<PizzaTypeCheckbox> = new Array<PizzaTypeCheckbox>();
+
+  ngOnInit(): void {
+  }
 
   constructor(
     private pizzaService: PizzaService,
     private cartService: CartService
   ) {}
 
-  pizzaTypeSelectionchanged(checkboxes) {
+  pizzaTypeSelectionchanged(checkboxes): void {
     this.checkboxes = checkboxes.filter((c) => c.checked == true);
     console.log(this.checkboxes);
     this.filterPizzas(this.searchString, this.checkboxes);
   }
 
-  searchStringChange(searchString) {
+  searchStringChange(searchString): void {
     this.searchString = searchString;
     console.log('SearchString: ', this.searchString, this.searchString.length);
     this.filterPizzas(this.searchString, this.checkboxes);
   }
 
-  filterPizzas(searchString, checkboxes) {
+  filterPizzas(searchString, checkboxes): void {
     this.pizzas = this.pizzaService
       .getPizzas()
       .pipe(

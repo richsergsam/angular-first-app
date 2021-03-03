@@ -1,9 +1,0 @@
-<ul *ngFor="let pizza of cart; trackBy: trackByFn">
-  <li>
-    <p>
-      {{ pizza.title }}: {{ pizza.count }} шт.
-      {{ pizza.cost * pizza.count }} рублей.
-    </p>
-  </li>
-</ul>
-<p>Итого: {{ cartService.getSumm() }}</p>

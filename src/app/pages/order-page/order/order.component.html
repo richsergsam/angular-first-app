@@ -1,0 +1,8 @@
+<div class="container card" *ngIf="order">
+  <h2>Заказ № {{order.id}}</h2>
+  <p>Статус: {{order.status}}</p>
+  <p>Состав:</p>
+  <app-cart [cart]="order.items"></app-cart>
+</div>
+
+

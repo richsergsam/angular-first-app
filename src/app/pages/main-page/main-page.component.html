@@ -1,0 +1,8 @@
+<app-search (searchStringChangeEvent)="searchStringChange($event)"></app-search>
+<app-pizza-type-selector
+  (selectionChangeEvent)="pizzaTypeSelectionchanged($event)"
+></app-pizza-type-selector>
+<div class="container" *ngFor="let pizza of pizzas | async">
+  <app-card [pizza]="pizza"></app-card>
+</div>
+<app-cart-wrapper [cart]="cart"></app-cart-wrapper>

@@ -1,0 +1,7 @@
+<div class="container">
+  <h2>Активые заказы</h2>
+  <pre>{{orders |async |json }}</pre>
+  <div *ngFor="let order of orders | async">
+    <app-order [order]="order"></app-order>
+  </div>
+</div>
