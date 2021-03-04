@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 
 import { CartItem } from './cart.service';
 
-enum OrderSatus {
+export enum OrderSatus {
   accepted = 'Принят',
   cook = 'Готовится',
   delivery = 'Передан на доставку',
@@ -21,6 +21,11 @@ export interface Order {
   providedIn: 'root',
 })
 export class OrdersService {
+  timers: Map<number, ReturnType<typeof setInterval>> = new Map<
+    number,
+    ReturnType<typeof setInterval>
+  >();
+
   orders: Array<Order> = [
     {
       id: 0,
@@ -74,6 +79,24 @@ export class OrdersService {
         },
       ],
     },
+    {
+      id: 2,
+      status: OrderSatus.done,
+      items: [
+        {
+          id: 2,
+          title: 'Ветчина и грибы',
+          imageURL:
+            'https://dodopizza-a.akamaihd.net/static/Img/Products/26fa2948b6c74113afb9d09a3262fc26_292x292.jpeg',
+          description:
+            'Ветчина, шампиньоны, увеличенная порция моцареллы, томатный соус',
+          ingridients: ['ветчина', 'шампиньоны', 'моцарелла', 'томатный соус'],
+          weight: 600,
+          cost: 329,
+          count: 1,
+        },
+      ],
+    },
   ];
 
   constructor() {}
@@ -83,7 +106,7 @@ export class OrdersService {
     return of(order);
   }
 
-  getOrders(): Observable<Array<Order>>{
+  getOrders(): Observable<Array<Order>> {
     console.log('Get orders. length = ', this.orders.length);
     return of(this.orders);
   }
@@ -97,6 +120,51 @@ export class OrdersService {
     this.orders.push(order);
     console.log('Add order. length = ', this.orders.length);
     console.log(this.orders);
+    this.timers.set(
+      order.id,
+      setInterval(this.tryChangeStatusOfOrder, 60 * 1000, order, this.timers)
+    );
     return order.id;
   }
+
+  tryChangeStatusOfOrder(order: Order, timers:  Map<number, ReturnType<typeof setInterval>>): void {
+    switch (order.status) {
+      case OrderSatus.accepted:
+        order.status = OrderSatus.cook;
+        break;
+      case OrderSatus.cook:
+        order.status = OrderSatus.delivery;
+        break;
+      default:
+        order.status = OrderSatus.done;
+        clearInterval(timers.get(order.id));
+        timers.delete(order.id);
+        break;
+    }
+  }
+
+  // tryChangeStatusOfOrder(id: number): void {
+  //   let index = this.orders.findIndex((o: Order) => o.id == id);
+  //   if (index >= 0) {
+  //     switch (this.orders[index].status) {
+  //       case OrderSatus.accepted:
+  //         this.orders[index].status = OrderSatus.cook;
+  //         break;
+  //       case OrderSatus.cook:
+  //         this.orders[index].status = OrderSatus.delivery;
+  //         break;
+  //       case OrderSatus.delivery:
+  //         this.orders[index].status = OrderSatus.done;
+  //         clearInterval(this.timers[id]);
+  //         break;
+  //       default:
+  //         this.orders[index].status = OrderSatus.done;
+  //         clearInterval(this.timers[id]);
+  //         break;
+  //     }
+  //   }
+  //   else{
+  //     clearInterval(this.timers[id]);
+  //   }
+  // }
 }

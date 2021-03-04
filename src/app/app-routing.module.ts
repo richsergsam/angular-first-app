@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'pizza', component: MainPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'orders', component: OrdersPageComponent },
-  { path: 'order/:id', component: OrderPageComponent },
+  { path: 'orders/:id', component: OrderPageComponent },
   {path: '404', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/404' },
 ];

@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs'
+import { Observable } from 'rxjs';
 
-import {OrdersService, Order} from '../../services/orders.service'
+import {
+  OrdersService,
+  Order,
+  OrderSatus,
+} from '../../services/orders.service';
 
 @Component({
   selector: 'app-orders-page',
   templateUrl: './orders-page.component.html',
-  styleUrls: ['./orders-page.component.scss']
+  styleUrls: ['./orders-page.component.scss'],
 })
 export class OrdersPageComponent implements OnInit {
+  orderStatus = OrderSatus;
+  orders: Observable<Array<Order>> = this.ordersService.getOrders();
 
-  orders: Observable<Array<Order>> = this.ordersService.getOrders();;
+  constructor(private ordersService: OrdersService) {}
 
-  constructor(private ordersService: OrdersService) { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

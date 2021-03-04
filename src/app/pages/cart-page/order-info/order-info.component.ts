@@ -57,6 +57,6 @@ export class OrderInfoComponent implements OnInit {
 
   onSubmit() {
     let orderId = this.ordersService.addOrder(this.cart);
-    this.router.navigate(['order', orderId]);
+    this.router.navigate(['orders', orderId]);
   }
 }

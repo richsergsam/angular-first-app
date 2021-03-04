@@ -11,7 +11,7 @@ export class CounterComponent implements OnInit {
   @Input() pizzaId: number;
   @Output() pizzaCountChangeEvent = new EventEmitter<number>();
 
-  count:number = 0;
+  @Input() count:number;
 
   constructor() { }
 

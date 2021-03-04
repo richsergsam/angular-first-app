@@ -11,13 +11,16 @@ export interface CartItem extends Pizza {
   providedIn: 'root',
 })
 export class CartService {
+
   private cart: Array<CartItem> = new Array<CartItem>();
 
-  constructor(private pizzaService: PizzaService) {}
+  constructor(private pizzaService: PizzaService) {
+    this.cart = JSON.parse(localStorage.getItem('cart'));
+  }
 
   changeCart(pizzaId, count) {
     if (count <= 0) {
-      let index = this.cart.findIndex((ci:CartItem) => ci.id == pizzaId);
+      let index = this.cart.findIndex((ci: CartItem) => ci.id == pizzaId);
       this.cart.splice(index, 1);
     } else {
       let cartItem = this.cart.find((pizza) => pizza.id == pizzaId);
@@ -34,13 +37,14 @@ export class CartService {
       }
     }
     console.log(this.cart);
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
-  getCart() : Array<CartItem>{
+  getCart(): Array<CartItem> {
     return this.cart;
   }
 
-  getSumm():number {
+  getSumm(): number {
     let sum = 0;
     for (let pizza of this.cart) {
       sum += pizza.cost * pizza.count;
@@ -50,5 +54,15 @@ export class CartService {
 
   clearCart(): void {
     this.cart = new Array();
+    localStorage.setItem('cart', JSON.stringify(this.cart));
+  }
+
+  getItemCount(itemId: number): number {
+    let index = this.cart.findIndex((ci: CartItem) => ci.id == itemId);
+    if (index >= 0) {
+      return this.cart[index].count;
+    }else{
+      return 0;
+    }
   }
 }

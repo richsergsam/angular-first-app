@@ -14,6 +14,7 @@
       <p>Цена: {{ pizza.cost }} р.</p>
       <app-counter
         [pizzaId]="pizza.id"
+        [count]="cartService.getItemCount(pizza.id)"
         (pizzaCountChangeEvent)="pizzaCountChange($event)"
       ></app-counter>
     </div>

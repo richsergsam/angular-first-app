@@ -19,6 +19,7 @@ import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { OrderComponent } from './pages/order-page/order/order.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { OrderComponent } from './pages/order-page/order/order.component';
     OrderPageComponent,
     OrdersPageComponent,
     PageNotFoundComponent,
-    OrderComponent
+    OrderComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

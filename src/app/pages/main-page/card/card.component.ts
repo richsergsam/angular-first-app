@@ -10,7 +10,7 @@ import {Pizza} from '../../../services/pizza.service'
 })
 export class CardComponent implements OnInit {
 
-  constructor(private cartService: CartService) { }
+  constructor(public cartService: CartService) { }
 
   @Input() pizza: Pizza;
 
