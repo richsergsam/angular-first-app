@@ -6,10 +6,11 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
+import { ExitMainGuard } from './pages/main-page/exit-main.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/pizza', pathMatch: 'full' },
-  { path: 'pizza', component: MainPageComponent },
+  { path: 'pizza', component: MainPageComponent, canDeactivate: [ExitMainGuard]},
   { path: 'cart', component: CartPageComponent },
   { path: 'orders', component: OrdersPageComponent },
   { path: 'orders/:id', component: OrderPageComponent },
@@ -20,5 +21,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [ExitMainGuard]
 })
 export class AppRoutingModule {}

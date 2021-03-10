@@ -1,1 +1,8 @@
-<p>dialog works!</p>
+<div class="overlay" [hidden]="!isContentSet">
+  <div class="content">
+    <div #content></div>
+
+    <a class="btn" (click)="answer(true)">Да</a>
+    <a class="btn" (click)="answer(false)">Нет</a>
+  </div>
+</div>

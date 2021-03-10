@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { PizzaService, Pizza } from '../../services/pizza.service';
 import { CartService, CartItem } from '../../services/cart.service';
-import {PizzaTypeCheckbox} from './pizza-type-selector/pizza-type-selector.component'
+import { PizzaTypeCheckbox } from './pizza-type-selector/pizza-type-selector.component';
+import { ComponentCanDeactivate } from './exit-main.guard';
+import { DialogService } from 'src/app/services/dialog.service';
+import { ExitDialogComponent } from 'src/app/shared/exit-dialog/exit-dialog.component';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  styleUrls: ['./main-page.component.scss'],
 })
-
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, ComponentCanDeactivate {
   pizzas: Observable<Array<Pizza>> = this.pizzaService.getPizzas();
   cart: Array<CartItem> = this.cartService.getCart();
 
   searchString: string = '';
   checkboxes: Array<PizzaTypeCheckbox> = new Array<PizzaTypeCheckbox>();
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   constructor(
     private pizzaService: PizzaService,
-    private cartService: CartService
+    private cartService: CartService,
+    private dialogService: DialogService
   ) {}
 
   pizzaTypeSelectionchanged(checkboxes): void {
@@ -65,5 +67,13 @@ export class MainPageComponent implements OnInit {
           })
         )
       );
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (this.cartService.getCart().length > 0) {
+      return this.dialogService.open(ExitDialogComponent, null);
+    } else {
+      return true;
+    }
   }
 }

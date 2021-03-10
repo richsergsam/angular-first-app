@@ -20,10 +20,10 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { OrderComponent } from './pages/order-page/order/order.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { ChildComponent } from './shared/child/child.component';
 import { DynamicComponent } from './shared/dynamic/dynamic.component';
 import { DynamicDirective } from './shared/dynamic.directive';
 import { DialogComponent } from './shared/dialog/dialog.component';
+import { ExitDialogComponent } from './shared/exit-dialog/exit-dialog.component';
 
 
 @NgModule({
@@ -44,10 +44,10 @@ import { DialogComponent } from './shared/dialog/dialog.component';
     PageNotFoundComponent,
     OrderComponent,
     HeaderComponent,
-    ChildComponent,
     DynamicComponent,
     DynamicDirective,
     DialogComponent,
+    ExitDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +56,8 @@ import { DialogComponent } from './shared/dialog/dialog.component';
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DynamicComponent]
+
 })
 export class AppModule { }

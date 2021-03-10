@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { TOKEN1 } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-dynamic',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DynamicComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(TOKEN1) data: any) { }
 
   ngOnInit(): void {
   }

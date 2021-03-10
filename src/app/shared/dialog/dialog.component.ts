@@ -1,13 +1,16 @@
+import { ThisReceiver } from '@angular/compiler';
 import {
   Component,
   OnInit,
-  OnDestroy,
-  Inject,
   Injectable,
+  ViewContainerRef,
+  Output,
+  ViewChild,
+  AfterViewInit,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import {TOKEN1} from '../../services/dialog.service'
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-dialog',
@@ -15,14 +18,28 @@ import {TOKEN1} from '../../services/dialog.service'
   styleUrls: ['./dialog.component.scss'],
 })
 @Injectable()
-export class DialogComponent implements OnInit, OnDestroy {
+export class DialogComponent implements OnInit, AfterViewInit {
+  @ViewChild('content', { read: ViewContainerRef })
+  content: ViewContainerRef;
+  isContentSet: boolean = false;
   result: boolean;
 
-  constructor(@Inject(TOKEN1) private resultObservable: Observable<boolean>) {}
+  @Output() returnValue: Subject<boolean> = new Subject<boolean>();
+
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private dialogService: DialogService
+  ) {}
+
 
   ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-    this.resultObservable.subscribe((r) => (r = this.result));
+  ngAfterViewInit() {
+    this.dialogService.register(this, this.returnValue);
+  }
+
+  answer(value: boolean) {
+    this.returnValue.next(value);
+    this.isContentSet = false;
   }
 }
