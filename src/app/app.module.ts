@@ -20,6 +20,10 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { OrderComponent } from './pages/order-page/order/order.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { ChildComponent } from './shared/child/child.component';
+import { DynamicComponent } from './shared/dynamic/dynamic.component';
+import { DynamicDirective } from './shared/dynamic.directive';
+import { DialogComponent } from './shared/dialog/dialog.component';
 
 
 @NgModule({
@@ -39,7 +43,11 @@ import { HeaderComponent } from './shared/header/header.component';
     OrdersPageComponent,
     PageNotFoundComponent,
     OrderComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChildComponent,
+    DynamicComponent,
+    DynamicDirective,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
