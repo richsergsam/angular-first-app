@@ -1,10 +1,15 @@
-<app-header></app-header>
 <div class="container">
   <h2>Активые заказы</h2>
   <!-- <pre>{{orders |async |json }}</pre> -->
 
   <div class="container card" *ngFor="let order of orders | async">
-    <app-order [order]="order"></app-order>
+    <!-- <app-order [order]="order"></app-order> -->
+    <div *ngIf="order">
+      <h2>Заказ № {{order.id}}</h2>
+      <p>Статус: {{order.status}}</p>
+      <p>Состав:</p>
+      <app-cart [cart]="order.items"></app-cart>
+    </div>
     <div *ngIf="order.status != orderStatus.done">
       <a [routerLink]="[order.id]">Просмотр</a>
     </div>

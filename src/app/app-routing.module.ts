@@ -13,8 +13,11 @@ const routes: Routes = [
   { path: 'pizza', component: MainPageComponent, canDeactivate: [ExitMainGuard]},
   { path: 'cart', component: CartPageComponent },
   { path: 'orders', component: OrdersPageComponent },
-  { path: 'orders/:id', component: OrderPageComponent },
+  { path: 'orders/:id', loadChildren: () => import('./pages/order/order.module').then(m => m.OrderModule) },
+  //{ path: 'orders/:id', loadChildren: () => import('./pages/order-page/order-page.component').then(m=> m.OrderPageComponent) },
+  //{ path: 'orders/:id', component: OrderPageComponent },
   {path: '404', component: PageNotFoundComponent},
+
   { path: '**', redirectTo: '/404' },
 ];
 
